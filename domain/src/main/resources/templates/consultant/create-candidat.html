@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${pageTitle} + ' - Mon App'">Titre par défaut</title>
+    <title>Créer un consultant à partir d'un candidat - Mon App</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,20 +13,17 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
     <div class="main-container">
-
         <!-- Barre Latérale Gauche -->
         <aside class="sidebar-left bg-dark text-white border-end">
             <div class="sidebar-header p-3 d-flex align-items-center">
                 <img src="/images/atlecslogo.png" width="200" height="100" alt="Logo">
-                <!-- <i class="fas fa-rocket fa-2x me-2"></i> -->
                 <h4 class="mb-0 sidebar-title">Gestion de Profil CV</h4>
             </div>
 
             <ul class="nav flex-column p-3">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
+                    <a class="nav-link" href="/">
                         <i class="fas fa-tasks fa-fw me-2"></i><span class="sidebar-text">Tâches en cours</span>
                     </a>
                 </li>
@@ -61,7 +58,7 @@
                         <i class="fas fa-cog fa-fw me-2"></i><span class="sidebar-text">Paramètres</span>
                     </a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-sign-out-alt fa-fw me-2"></i><span class="sidebar-text">Déconnexion</span>
                     </a>
@@ -74,17 +71,35 @@
             <!-- Bouton de bascule -->
             <button class="btn btn-light mb-3" id="sidebarToggle"><i class="fas fa-bars"></i></button>
 
-            <h1 class="display-4" th:text="${pageTitle}">Titre de la Page</h1>
-            <p class="lead">Bienvenue, <span th:text="${username}">utilisateur</span> !</p>
-            <hr class="my-4">
-            <p>Utilisez le bouton <i class="fas fa-bars"></i>en haut pour afficher ou masquer le menu latéral.</p>
+            <h1 class="display-4">Créer un consultant à partir d'un candidat</h1>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="candidatSelect" class="form-label">Sélectionner un candidat</label>
+                            <select class="form-select" id="candidatSelect" required>
+                                <option value="">Choisir un candidat...</option>
+                                <!-- Les options seront remplies dynamiquement depuis la base de données -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateDebut" class="form-label">Date de début</label>
+                            <input type="date" class="form-control" id="dateDebut" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentaire" class="form-label">Commentaire</label>
+                            <textarea class="form-control" id="commentaire" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Créer le consultant</button>
+                    </form>
+                </div>
+            </div>
         </main>
-        
     </div>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Notre script JS personnalisé (à charger à la fin) -->
+    <!-- Notre script JS personnalisé -->
     <script th:src="@{/js/app.js}"></script>
 </body>
-</html>
+</html> 

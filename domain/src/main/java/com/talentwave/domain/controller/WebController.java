@@ -13,4 +13,25 @@ public class WebController {
         model.addAttribute("username", "Admin");
         return "index"; // retourne le nom du template Thymeleaf (index.html)
     }
+
+    @GetMapping("/consultant/create/cv")
+    public String createConsultantByCV(Model model) {
+        model.addAttribute("pageTitle", "Créer un consultant par CV");
+        model.addAttribute("username", "Admin");
+        return "consultant/create-cv";
+    }
+
+    @GetMapping("/consultant/create/saisir")
+    public String createConsultantBySaisir(Model model) {
+        model.addAttribute("pageTitle", "Créer un consultant par saisie");
+        model.addAttribute("username", "Admin");
+        return "consultant/create-saisir";
+    }
+
+    @GetMapping("/consultant/create/candidat")
+    public String createConsultantByCandidat(Model model) {
+        model.addAttribute("pageTitle", "Créer un consultant à partir d'un candidat");
+        model.addAttribute("username", "Admin");
+        return "consultant/create-candidat";
+    }
 }
