@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/candidat/add">
                         <i class="fas fa-plus-circle fa-fw me-2"></i><span class="sidebar-text">Ajouter un candidat</span>
                     </a>
                 </li>
@@ -102,6 +102,16 @@
                             <textarea class="form-control" id="adresse" rows="2"></textarea>
                         </div>
 
+                        <!-- profilScript -->
+                        <h4 class="mb-3 mt-4">Profil</h4>
+                        <div id="psContainer">
+                            <div class="ps-item mb-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Saisir le profil du cv" required>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4">
                         <!-- Compétences -->
                         <h4 class="mb-3 mt-4">Compétences</h4>
                         <div id="competencesContainer">
@@ -123,6 +133,25 @@
                         <button type="button" class="btn btn-secondary mb-4" id="addCompetence">
                             <i class="fas fa-plus me-2"></i>Ajouter une compétence
                         </button>
+                        <hr class="my-4">
+
+                        <!-- Qualités -->
+                        <h4 class="mb-3 mt-4">Qualités ( soft skills) </h4>
+                        <div id="ssContainer">
+                            <div class="ss-item mb-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Soft skills" required>
+    
+                                    <button type="button" class="btn btn-danger remove-ss">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary mb-4" id="addss">
+                            <i class="fas fa-plus me-2"></i>Ajouter
+                        </button>
+                        <hr class="my-4">
 
                         <!-- Expérience professionnelle -->
                         <h4 class="mb-3">Expérience professionnelle</h4>
@@ -199,8 +228,50 @@
                         <button type="button" class="btn btn-secondary mb-4" id="addFormation">
                             <i class="fas fa-plus me-2"></i>Ajouter une formation
                         </button>
+                        <hr class="my-4">
 
-                        <button type="submit" class="btn btn-primary">
+                        <!-- Langues -->
+                        <h4 class="mb-3 mt-4">Langues</h4>
+                        <div id="languesContainer">
+                            <div class="langues-item mb-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Langues" required>
+                                    <select class="form-select" style="max-width: 150px;">
+                                        <option value="debutant">Débutant</option>
+                                        <option value="intermediaire">Intermédiaire</option>
+                                        <option value="avance">Avancé</option>
+                                        <option value="expert">Expert</option>
+                                    </select>
+                                    <button type="button" class="btn btn-danger remove-langues">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary mb-4" id="addLangues">
+                            <i class="fas fa-plus me-2"></i>Ajouter une langue
+                        </button>
+                        <hr class="my-4">
+
+                        <!-- Centres d'intéret -->
+                        <h4 class="mb-3 mt-4">Centres d'intéret</h4>
+                        <div id="ciContainer">
+                            <div class="ci-item mb-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Centres d'intéret" required>
+    
+                                    <button type="button" class="btn btn-danger remove-ci">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary mb-4" id="addci">
+                            <i class="fas fa-plus me-2"></i>Ajouter
+                        </button>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary" style="display: block; margin: 20px auto;">
                             <i class="fas fa-save me-2"></i>Créer le consultant
                         </button>
                     </form>
@@ -291,6 +362,46 @@
                 </div>
             </template>
 
+            <template id="languesTemplate">
+                <div class="langues-item mb-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Langues" required>
+                        <select class="form-select" style="max-width: 150px;">
+                            <option value="debutant">Débutant</option>
+                            <option value="intermediaire">Intermédiaire</option>
+                            <option value="avance">Avancé</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                        <button type="button" class="btn btn-danger remove-langues">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+            <template id="ciTemplate">
+                <div class="ci-item mb-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Centres d'intéret" required>
+                        <button type="button" class="btn btn-danger remove-ci">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+            <template id="ssTemplate">
+                <div class="ss-item mb-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Soft skills" required>
+                        <button type="button" class="btn btn-danger remove-ss">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     // Gestion des compétences
@@ -306,6 +417,22 @@
                     competencesContainer.addEventListener('click', function(e) {
                         if (e.target.closest('.remove-competence')) {
                             e.target.closest('.competence-item').remove();
+                        }
+                    });
+
+                    // Gestion des soft skills
+                    const addssBtn = document.getElementById('addss');
+                    const ssContainer = document.getElementById('ssContainer');
+                    const ssTemplate = document.getElementById('ssTemplate');
+
+                    addssBtn.addEventListener('click', function() {
+                        const clone = ssTemplate.content.cloneNode(true);
+                        ssContainer.appendChild(clone);
+                    });
+
+                    ssContainer.addEventListener('click', function(e) {
+                        if (e.target.closest('.remove-ss')) {
+                            e.target.closest('.ss-item').remove();
                         }
                     });
 
@@ -340,6 +467,39 @@
                             e.target.closest('.formation-item').remove();
                         }
                     });
+
+                     // Gestion des langues
+                    const addLanguesBtn = document.getElementById('addLangues');
+                    const languesContainer = document.getElementById('languesContainer');
+                    const languesTemplate = document.getElementById('languesTemplate');
+
+                    addLanguesBtn.addEventListener('click', function() {
+                        const clone = languesTemplate.content.cloneNode(true);
+                        languesContainer.appendChild(clone);
+                    });
+
+                    languesContainer.addEventListener('click', function(e) {
+                        if (e.target.closest('.remove-langues')) {
+                            e.target.closest('.langues-item').remove();
+                        }
+                    });
+
+                    // Gestion des ci
+                    const addciBtn = document.getElementById('addci');
+                    const ciContainer = document.getElementById('ciContainer');
+                    const ciTemplate = document.getElementById('ciTemplate');
+
+                    addciBtn.addEventListener('click', function() {
+                        const clone = ciTemplate.content.cloneNode(true);
+                        ciContainer.appendChild(clone);
+                    });
+
+                    ciContainer.addEventListener('click', function(e) {
+                        if (e.target.closest('.remove-ci')) {
+                            e.target.closest('.ci-item').remove();
+                        }
+                    });
+
 
                     // Gestion du formulaire
                     const form = document.getElementById('consultantForm');

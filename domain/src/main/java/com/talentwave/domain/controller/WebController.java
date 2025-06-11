@@ -34,4 +34,11 @@ public class WebController {
         model.addAttribute("username", "Admin");
         return "consultant/create-candidat";
     }
+
+    @GetMapping("/candidat/add")
+    public String addCandidat(Model model) {
+        model.addAttribute("pageTitle", "Ajouter un candidat");
+        model.addAttribute("username", "Admin");
+        return "candidat/add-candidat";
+    }
 }
