@@ -27,12 +27,12 @@
             <ul class="nav flex-column p-3">
                 <li class="nav-item">
                     <a class="nav-link active" href="#">
-                        <i class="fas fa-tasks fa-fw me-2"></i><span class="sidebar-text">Tâches en cours</span>
+                        <i class="fas fa-home fa-fw me-2"></i><span class="sidebar-text">Page d'accueil</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-check-circle fa-fw me-2"></i><span class="sidebar-text">Tâches terminées</span>
+                    <a class="nav-link" href="/consultant/search">
+                        <i class="fas fa-search fa-fw me-2"></i><span class="sidebar-text">Rechercher des profils</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -61,6 +61,11 @@
                         <i class="fas fa-cog fa-fw me-2"></i><span class="sidebar-text">Paramètres</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user fa-fw me-2"></i><span class="sidebar-text">Profil</span>
+                    </a>
+                </li>
                  <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-sign-out-alt fa-fw me-2"></i><span class="sidebar-text">Déconnexion</span>
@@ -77,7 +82,12 @@
             <h1 class="display-4" th:text="${pageTitle}">Titre de la Page</h1>
             <p class="lead">Bienvenue, <span th:text="${username}">utilisateur</span> !</p>
             <hr class="my-4">
-            <p>Utilisez le bouton <i class="fas fa-bars"></i>en haut pour afficher ou masquer le menu latéral.</p>
+
+            <div class="alert alert-info mb-4">
+                <h4 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Instructions</h4>
+                <p>Utilisez le bouton <i class="fas fa-bars me-2"></i>en haut pour afficher ou masquer le menu latéral.</p>
+            </div>
+            
         </main>
         
     </div>

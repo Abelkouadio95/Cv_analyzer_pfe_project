@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechercher des profils - Mon App</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Notre CSS personnalisé -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .filter-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .profile-card {
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+        }
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .skill-badge {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 2px;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+        .experience-badge {
+            background-color: #007bff;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+        }
+        .availability-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Barre Latérale Gauche -->
+        <aside class="sidebar-left bg-dark text-white border-end">
+            <div class="sidebar-header p-3 d-flex align-items-center">
+                <img src="/images/atlecslogo.png" width="200" height="100" alt="Logo">
+                <h4 class="mb-0 sidebar-title">Gestion de Profil CV</h4>
+            </div>
+
+            <ul class="nav flex-column p-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-tasks fa-fw me-2"></i><span class="sidebar-text">Tâches en cours</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-check-circle fa-fw me-2"></i><span class="sidebar-text">Tâches terminées</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/candidat/add">
+                        <i class="fas fa-plus-circle fa-fw me-2"></i><span class="sidebar-text">Ajouter un candidat</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-circle-plus fa-fw me-2"></i><span class="sidebar-text">Creer un consultant</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/consultant/create/cv">Creer par CV</a></li>
+                        <li><a class="dropdown-item" href="/consultant/create/saisir">Creer par saisir</a></li>
+                        <li><a class="dropdown-item" href="/consultant/create/candidat">Creer par candidat</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/consultant/search">
+                        <i class="fas fa-search fa-fw me-2"></i><span class="sidebar-text">Rechercher des profils</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-archive fa-fw me-2"></i><span class="sidebar-text">Archives</span>
+                    </a>
+                </li>
+                <hr class="text-secondary">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cog fa-fw me-2"></i><span class="sidebar-text">Paramètres</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt fa-fw me-2"></i><span class="sidebar-text">Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Contenu Principal -->
+        <main class="content-wrapper p-4">
+            <!-- Bouton de bascule -->
+            <button class="btn btn-light mb-3" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+
+            <h1 class="display-4 mb-4">Rechercher des profils</h1>
+
+            <!-- Section des filtres -->
+            <div class="filter-section">
+                <form id="searchForm" class="row g-3">
+                    <!-- Recherche par mot-clé -->
+                    <div class="col-md-12 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Rechercher par nom, compétences, expérience...">
+                        </div>
+                    </div>
+
+                    <!-- Filtres principaux -->
+                    <div class="col-md-4">
+                        <label class="form-label">Secteur d'activité</label>
+                        <select class="form-select" multiple>
+                            <option value="it">Informatique</option>
+                            <option value="finance">Finance</option>
+                            <option value="sante">Santé</option>
+                            <option value="education">Éducation</option>
+                            <option value="industrie">Industrie</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="construction">Construction</option>
+                            <option value="energie">Énergie</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Fonction</label>
+                        <select class="form-select" multiple>
+                            <option value="dev">Développeur</option>
+                            <option value="data">Data Scientist</option>
+                            <option value="devops">DevOps</option>
+                            <option value="design">Designer</option>
+                            <option value="pm">Project Manager</option>
+                            <option value="ba">Business Analyst</option>
+                            <option value="qa">QA Engineer</option>
+                            <option value="architect">Architecte</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Niveau d'expérience</label>
+                        <select class="form-select">
+                            <option value="">Tous les niveaux</option>
+                            <option value="junior">Junior (0-2 ans)</option>
+                            <option value="intermediate">Intermédiaire (2-5 ans)</option>
+                            <option value="senior">Senior (5-10 ans)</option>
+                            <option value="expert">Expert (10+ ans)</option>
+                        </select>
+                    </div>
+
+                    <!-- Filtres avancés -->
+                    <div class="col-md-4">
+                        <label class="form-label">Disponibilité</label>
+                        <select class="form-select">
+                            <option value="">Toutes les disponibilités</option>
+                            <option value="immediate">Immédiate</option>
+                            <option value="1month">Dans 1 mois</option>
+                            <option value="3months">Dans 3 mois</option>
+                            <option value="6months">Dans 6 mois</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Localisation</label>
+                        <select class="form-select">
+                            <option value="">Toutes les localisations</option>
+                            <option value="paris">Paris</option>
+                            <option value="lyon">Lyon</option>
+                            <option value="marseille">Marseille</option>
+                            <option value="lille">Lille</option>
+                            <option value="bordeaux">Bordeaux</option>
+                            <option value="toulouse">Toulouse</option>
+                            <option value="remote">Télétravail</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Type de contrat</label>
+                        <select class="form-select">
+                            <option value="">Tous les types</option>
+                            <option value="cdi">CDI</option>
+                            <option value="cdd">CDD</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="interim">Intérim</option>
+                        </select>
+                    </div>
+
+                    <!-- Compétences techniques -->
+                    <div class="col-md-12">
+                        <label class="form-label">Compétences techniques</label>
+                        <select class="form-select" multiple>
+                            <option value="java">Java</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="react">React</option>
+                            <option value="angular">Angular</option>
+                            <option value="vue">Vue.js</option>
+                            <option value="spring">Spring</option>
+                            <option value="node">Node.js</option>
+                            <option value="sql">SQL</option>
+                            <option value="nosql">NoSQL</option>
+                            <option value="aws">AWS</option>
+                            <option value="azure">Azure</option>
+                            <option value="docker">Docker</option>
+                            <option value="kubernetes">Kubernetes</option>
+                        </select>
+                    </div>
+
+                    <!-- Langues -->
+                    <div class="col-md-12">
+                        <label class="form-label">Langues</label>
+                        <select class="form-select" multiple>
+                            <option value="fr">Français</option>
+                            <option value="en">Anglais</option>
+                            <option value="es">Espagnol</option>
+                            <option value="de">Allemand</option>
+                            <option value="it">Italien</option>
+                        </select>
+                    </div>
+
+                    <!-- Boutons de filtrage -->
+                    <div class="col-12 text-end">
+                        <button type="reset" class="btn btn-outline-secondary me-2">
+                            <i class="fas fa-undo me-2"></i>Réinitialiser
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i>Rechercher
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Résultats de recherche -->
+            <div class="row" id="searchResults">
+                <!-- Exemple de carte de profil -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card profile-card">
+                        <div class="card-body">
+                            <span class="badge bg-success availability-badge">Disponible</span>
+                            <div class="text-center">
+                                <img src="https://via.placeholder.com/100" alt="Photo de profil" class="profile-image">
+                                <h5 class="card-title">Jean Dupont</h5>
+                                <p class="card-subtitle mb-2 text-muted">Développeur Full Stack Senior</p>
+                            </div>
+                            <div class="mb-3">
+                                <span class="experience-badge">8 ans d'expérience</span>
+                            </div>
+                            <p class="card-text">
+                                <i class="fas fa-map-marker-alt me-2"></i>Paris
+                                <br>
+                                <i class="fas fa-briefcase me-2"></i>Disponible dans 1 mois
+                            </p>
+                            <div class="mb-3">
+                                <strong>Compétences principales :</strong>
+                                <div class="mt-2">
+                                    <span class="skill-badge">Java</span>
+                                    <span class="skill-badge">Spring</span>
+                                    <span class="skill-badge">React</span>
+                                    <span class="skill-badge">AWS</span>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-outline-primary">
+                                    <i class="fas fa-eye me-2"></i>Voir le profil complet
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Répéter pour d'autres profils -->
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Navigation des résultats" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Précédent</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Suivant</a>
+                    </li>
+                </ul>
+            </nav>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Notre script JS personnalisé -->
+    <script th:src="@{/js/app.js}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion du formulaire de recherche
+            const searchForm = document.getElementById('searchForm');
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Ici, vous pouvez ajouter la logique pour envoyer les critères de recherche au serveur
+                console.log('Recherche soumise');
+            });
+
+            // Gestion de la réinitialisation des filtres
+            const resetButton = searchForm.querySelector('button[type="reset"]');
+            resetButton.addEventListener('click', function() {
+                // Réinitialiser tous les champs du formulaire
+                searchForm.reset();
+            });
+        });
+    </script>
+</body>
+</html> 
