@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DomainApplication<domain>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.talentwave.domain.DomainApplication",
+            "projectName": "domain",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

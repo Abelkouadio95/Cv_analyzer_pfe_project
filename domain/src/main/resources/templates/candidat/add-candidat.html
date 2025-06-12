@@ -34,7 +34,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="/candidat/add">
-                        <i class="fas fa-plus-circle fa-fw me-2"></i><span class="sidebar-text">Ajouter un candidat</span>
+                        <i class="fas fa-plus-circle fa-fw me-2"></i><span class="sidebar-text">Ajouter/voir un candidat</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -79,32 +79,32 @@
             <h1 class="display-4">Ajouter un candidat</h1>
             <div class="card mt-4">
                 <div class="card-body">
-                    <form id="candidatForm" enctype="multipart/form-data">
+                    <form id="candidatForm" enctype="multipart/form-data" th:action="@{/candidat/add}" th:object="${candidat}" method="post">
                         <!-- Informations personnelles -->
                         <h4 class="mb-3">Informations personnelles</h4>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="nom" class="form-label">Nom</label>
-                                <input type="text" class="form-control" id="nom" name="nom" required>
+                                <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom" required>
+                                <input type="text" class="form-control" id="prenom" name="prenom" th:field="*{prenom}" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="tel" class="form-control" id="telephone" name="telephone">
+                                <input type="tel" class="form-control" id="telephone" name="telephone" th:field="*{telephone}">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="adresse" class="form-label">Adresse</label>
-                            <textarea class="form-control" id="adresse" name="adresse" rows="2"></textarea>
+                            <textarea class="form-control" id="adresse" name="adresse" rows="2" th:field="*{adresse}"></textarea>
                         </div>
 
                         <hr class="my-4">
@@ -112,12 +112,18 @@
                         <h4 class="mb-3 mt-4">CV</h4>
                         <div class="mb-4">
                             <label for="cvFile" class="form-label">Sélectionner un CV</label>
-                            <input type="file" class="form-control" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx,.png" required>
+                            <input type="file" class="form-control" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx,.png">
                             <div class="form-text">Taille maximale : 5MB. Formats acceptés : PDF, DOC, PNG</div>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="display: block; margin: 20px auto;">
+                        <div style="display: flex;">
+                            <button type="submit" class="btn btn-success" style="display: block; margin: 20px auto;">
                             <i class="fas fa-save me-2"></i>Enregistrer le candidat
-                        </button>
+                            </button>
+                            <a href="/candidat/list" class="btn btn-primary" style="display: block; margin: 20px auto;">
+                            <i class="fas fa-eye me-2"></i>Voir les candidats
+                            </a>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
