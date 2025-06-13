@@ -27,7 +27,7 @@ public class CandidatController {
     @PostMapping("/candidat/add")
     public String saveCandidat(@ModelAttribute("candidat") Candidat candidat) {
         candidatService.saveCandidat(candidat);
-        return "redirect:/candidat/add-candidat";
+        return "redirect:/candidat/list";
     }
 
     @GetMapping("/candidat/list")

@@ -1,0 +1,18 @@
+services:
+  mysql:
+    image: mysql:8.0 # Specify the MySQL version
+    container_name: mysql_container
+    environment:
+      - MYSQL_ROOT_PASSWORD=49725324KaB!
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=49725324KaB!
+      - MYSQL_DATABASE=pfe_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql # Optional: Persistent data storage
+    restart: always #  Restart container automatically on failure
+
+volumes:
+  mysql_data:
+    driver: local

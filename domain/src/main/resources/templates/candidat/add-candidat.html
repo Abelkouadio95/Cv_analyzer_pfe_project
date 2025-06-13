@@ -139,8 +139,7 @@
             // Gestion du formulaire
             const form = document.getElementById('candidatForm');
             form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Ici, vous pouvez ajouter la logique pour envoyer les données au serveur
+                // Remove preventDefault to allow form submission
                 console.log('Formulaire soumis');
             });
         });
