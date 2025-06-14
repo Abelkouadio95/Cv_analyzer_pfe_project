@@ -17,7 +17,7 @@ public class Candidat {
     private String email;
     private String telephone;
     private String adresse;
-    //private String cvPath;
+    private String cvPath;
 
     /*@ElementCollection
     @CollectionTable(name = "consultant_secteurs", joinColumns = @JoinColumn(name = "consultant_id"))
@@ -71,6 +71,14 @@ public class Candidat {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public String getCvPath() {
+        return cvPath;
+    }
+
+    public void setCvPath(String cvPath) {
+        this.cvPath = cvPath;
     }
 
    /*  public String getcv() {
