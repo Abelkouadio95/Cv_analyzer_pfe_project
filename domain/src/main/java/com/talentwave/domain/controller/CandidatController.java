@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import com.talentwave.domain.model.Candidat;
 import com.talentwave.domain.service.CandidatService;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class CandidatController {
@@ -66,5 +67,50 @@ public class CandidatController {
     public String voirListCandidats(Model model) {
         model.addAttribute("candidats", candidatService.getAllCandidats());
         return "candidat/list-candidats";
+    }
+
+    @GetMapping("/candidat/delete/{id}")
+    public String deleteCandidat(@PathVariable Long id) {
+        candidatService.deleteCandidat(id);
+        return "redirect:/candidat/list";
+    }
+
+    @GetMapping("/candidat/edit/{id}")
+    public String editCandidat(@PathVariable Long id, Model model) {
+        Candidat candidat = candidatService.getCandidatById(id);
+        model.addAttribute("candidat", candidat);
+        return "candidat/edit-candidat";
+    }
+
+    @PostMapping("/candidat/update")
+    public String updateCandidat(@ModelAttribute("candidat") Candidat candidat,
+                               @RequestParam(value = "cvFile", required = false) MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                // Create upload directory if it doesn't exist
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // Generate unique filename
+                String originalFilename = file.getOriginalFilename();
+                String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                String newFilename = UUID.randomUUID().toString() + extension;
+
+                // Save file
+                Path filePath = uploadPath.resolve(newFilename);
+                Files.copy(file.getInputStream(), filePath);
+
+                // Set the CV path in the candidat object
+                candidat.setCvPath("/" + UPLOAD_DIR + newFilename);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle the error appropriately
+            }
+        }
+
+        candidatService.updateCandidat(candidat);
+        return "redirect:/candidat/list";
     }
 }

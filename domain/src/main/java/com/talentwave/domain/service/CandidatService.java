@@ -22,5 +22,16 @@ public class CandidatService {
         return candidatRepository.findAll();
     }
 
+    public void deleteCandidat(Long id) {
+        candidatRepository.deleteById(id);
+    }
 
+    public Candidat getCandidatById(Long id) {
+        return candidatRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Candidat not found with id: " + id));
+    }
+
+    public void updateCandidat(Candidat candidat) {
+        candidatRepository.save(candidat);
+    }
 }
