@@ -15,57 +15,67 @@
 <body>
     <div class="main-container">
         <!-- Barre Latérale Gauche -->
-        <aside class="sidebar-left bg-dark text-white border-end">
-            <div class="sidebar-header p-3 d-flex align-items-center">
-                <img src="/images/atlecslogo.png" width="200" height="100" alt="Logo">
-                <h4 class="mb-0 sidebar-title">Gestion de Profil CV</h4>
+        <aside class="sidebar-left border-end">
+            <div class="sidebar-header">
+                <img src="/images/atlecslogo.png" alt="Logo">
+                <h4 class="sidebar-title">Gestion de Profil CV</h4>
             </div>
 
             <ul class="nav flex-column p-3">
                 <li class="nav-item">
                     <a class="nav-link" href="/">
-                        <i class="fas fa-home fa-fw me-2"></i><span class="sidebar-text">Page d'accueil</span>
+                        <i class="fas fa-home"></i>
+                        <span>Page d'accueil</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/consultant/search">
-                        <i class="fas fa-search fa-fw me-2"></i><span class="sidebar-text">Rechercher des profils</span>
+                        <i class="fas fa-search"></i>
+                        <span>Rechercher des profils</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/candidat/add">
-                        <i class="fas fa-plus-circle fa-fw me-2"></i><span class="sidebar-text">Ajouter/voir un candidat</span>
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Ajouter/voir candidat</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-circle-plus fa-fw me-2"></i><span class="sidebar-text">Creer un consultant</span>
+                    <a class="nav-link  active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-circle-plus"></i>
+                        <span>Créer un consultant</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/consultant/create/cv">Creer par CV</a></li>
-                        <li><a class="dropdown-item" href="/consultant/create/saisir">Creer par saisir</a></li>
-                        <li><a class="dropdown-item" href="/consultant/create/candidat">Creer par candidat</a></li>
+                        <li><a class="dropdown-item" href="/consultant/create/cv">Créer par CV</a></li>
+                        <li><a class="dropdown-item" href="/consultant/create/saisir">Créer par saisie</a></li>
+                        <li><a class="dropdown-item" href="/consultant/create/candidat">Créer par candidat</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-archive fa-fw me-2"></i><span class="sidebar-text">Archives</span>
+                        <i class="fas fa-archive"></i>
+                        <span>Archives</span>
                     </a>
                 </li>
-                <hr class="text-secondary">
+
+                <div class="sidebar-divider"></div>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-cog fa-fw me-2"></i><span class="sidebar-text">Paramètres</span>
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-user fa-fw me-2"></i><span class="sidebar-text">Profil</span>
+                        <i class="fas fa-user"></i>
+                        <span>Profil</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-sign-out-alt fa-fw me-2"></i><span class="sidebar-text">Déconnexion</span>
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Déconnexion</span>
                     </a>
                 </li>
             </ul>
@@ -73,6 +83,10 @@
 
         <!-- Contenu Principal -->
         <main class="content-wrapper p-4">
+            <!-- Logo principal -->
+            <div class="main-logo">
+                <img src="/images/atlecslogo.png" alt="Logo">
+            </div>
             <!-- Bouton de bascule -->
             <button class="btn btn-light mb-3" id="sidebarToggle"><i class="fas fa-bars"></i></button>
 

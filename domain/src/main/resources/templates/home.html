@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Gestion de Profil CV</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Notre CSS personnalisé -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Barre Latérale Gauche -->
+        <aside class="sidebar-left border-end">
+            <div class="sidebar-header">
+                <img src="/images/atlecslogo.png" alt="Logo">
+                <h4 class="sidebar-title">Gestion de Profil CV</h4>
+            </div>
+
+            <ul class="nav flex-column p-3">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        <i class="fas fa-home"></i>
+                        <span>Page d'accueil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/consultant/search">
+                        <i class="fas fa-search"></i>
+                        <span>Rechercher des profils</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/candidat/add">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Ajouter/voir candidat</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-circle-plus"></i>
+                        <span>Créer un consultant</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/consultant/create/cv">Créer par CV</a></li>
+                        <li><a class="dropdown-item" href="/consultant/create/saisir">Créer par saisie</a></li>
+                        <li><a class="dropdown-item" href="/consultant/create/candidat">Créer par candidat</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                </li>
+
+                <div class="sidebar-divider"></div>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user"></i>
+                        <span>Profil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Contenu Principal -->
+        <main class="content-wrapper">
+            <!-- Logo principal -->
+            <div class="main-logo">
+                <img src="/images/atlecslogo.png" alt="Logo">
+            </div>
+
+            <!-- Bouton de bascule -->
+            <button class="btn btn-light mb-3" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="container-fluid">
+                <h1 class="display-4 mb-4">Bienvenue sur votre espace de gestion</h1>
+                <hr class="text-secondary">
+                
+                <!-- Cartes statistiques -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Candidats</h5>
+                                <h2 class="card-text">150</h2>
+                                <p class="card-text"><small>+12% ce mois</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Consultants Actifs</h5>
+                                <h2 class="card-text">45</h2>
+                                <p class="card-text"><small>+5% ce mois</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">CV en attente</h5>
+                                <h2 class="card-text">23</h2>
+                                <p class="card-text"><small>À traiter</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Missions en cours</h5>
+                                <h2 class="card-text">18</h2>
+                                <p class="card-text"><small>Actives</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activité récente -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Activité récente</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Nouveau candidat ajouté</h6>
+                                            <small>Il y a 3 minutes</small>
+                                        </div>
+                                        <p class="mb-1">Jean Dupont a été ajouté à la base de données.</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">CV mis à jour</h6>
+                                            <small>Il y a 1 heure</small>
+                                        </div>
+                                        <p class="mb-1">Marie Martin a mis à jour son CV.</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Nouvelle mission créée</h6>
+                                            <small>Il y a 2 heures</small>
+                                        </div>
+                                        <p class="mb-1">Mission "Développeur Full Stack" créée.</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Actions rapides</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <a href="/candidat/add" class="btn btn-primary">
+                                        <i class="fas fa-plus-circle me-2"></i>Ajouter un candidat
+                                    </a>
+                                    <a href="/consultant/search" class="btn btn-outline-primary">
+                                        <i class="fas fa-search me-2"></i>Rechercher des profils
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fas fa-file-export me-2"></i>Exporter les données
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Notre script JS personnalisé -->
+    <script th:src="@{/js/app.js}"></script>
+    
+</body>
+</html> 

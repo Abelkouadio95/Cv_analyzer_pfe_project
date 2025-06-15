@@ -12,6 +12,19 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleButton.addEventListener('click', function() {
             // Ajoute ou retire la classe 'collapsed' de la barre latérale
             sidebar.classList.toggle('collapsed');
-        });
+            sidebar.classList.toggle('active')
+        })
+    } 
+       
+    function handleResize() {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('active');
+        } else {
+            sidebar.classList.add('active');
+        }
     }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+        
 });

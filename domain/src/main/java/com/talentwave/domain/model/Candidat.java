@@ -18,11 +18,20 @@ public class Candidat {
     private String telephone;
     private String adresse;
     private String cvPath;
+    private String secteur;
 
     /*@ElementCollection
     @CollectionTable(name = "consultant_secteurs", joinColumns = @JoinColumn(name = "consultant_id"))
     @Column(name = "secteur")
     private Set<String> secteursActivite;*/
+
+    public String getSecteur() {
+        return secteur;
+    }
+
+    public void setSecteur(String secteur) {
+        this.secteur = secteur;
+    }
 
     // Getters et Setters
     public Long getId() {

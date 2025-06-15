@@ -20,7 +20,7 @@ public class WebController {
     public String index(Model model) {
         model.addAttribute("pageTitle", "GESTION DE PROFILS CV");
         model.addAttribute("username", "Admin");
-        return "index"; // retourne le nom du template Thymeleaf (index.html)
+        return "home"; // retourne le nom du template Thymeleaf (home.html)
     }
 
     @GetMapping("/consultant/create/cv")
@@ -67,8 +67,6 @@ public class WebController {
                 anneesExperience
         ); */
     public String searchProfiles(Model model){
-        model.addAttribute("pageTitle", "Rechercher des profils");
-        model.addAttribute("username", "Admin");
         //model.addAttribute("consultants", consultants);
         return "consultant/search-profiles";
     }

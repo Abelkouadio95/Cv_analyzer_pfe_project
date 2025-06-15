@@ -31,6 +31,25 @@ public class CandidatController {
         return "candidat/add-candidat";
     }
 
+    @GetMapping("/candidat/list")
+    public String voirListCandidats(Model model) {
+        model.addAttribute("candidats", candidatService.getAllCandidats());
+        return "candidat/list-candidats";
+    }
+
+    @GetMapping("/candidat/delete/{id}")
+    public String deleteCandidat(@PathVariable Long id) {
+        candidatService.deleteCandidat(id);
+        return "redirect:/candidat/list";
+    }
+
+    @GetMapping("/candidat/edit/{id}")
+    public String editCandidat(@PathVariable Long id, Model model) {
+        Candidat candidat = candidatService.getCandidatById(id);
+        model.addAttribute("candidat", candidat);
+        return "candidat/edit-candidat";
+    }
+
     @PostMapping("/candidat/add")
     public String saveCandidat(@ModelAttribute("candidat") Candidat candidat, 
                              @RequestParam("cvFile") MultipartFile file) {
@@ -61,25 +80,6 @@ public class CandidatController {
 
         candidatService.saveCandidat(candidat);
         return "redirect:/candidat/list";
-    }
-
-    @GetMapping("/candidat/list")
-    public String voirListCandidats(Model model) {
-        model.addAttribute("candidats", candidatService.getAllCandidats());
-        return "candidat/list-candidats";
-    }
-
-    @GetMapping("/candidat/delete/{id}")
-    public String deleteCandidat(@PathVariable Long id) {
-        candidatService.deleteCandidat(id);
-        return "redirect:/candidat/list";
-    }
-
-    @GetMapping("/candidat/edit/{id}")
-    public String editCandidat(@PathVariable Long id, Model model) {
-        Candidat candidat = candidatService.getCandidatById(id);
-        model.addAttribute("candidat", candidat);
-        return "candidat/edit-candidat";
     }
 
     @PostMapping("/candidat/update")
