@@ -103,9 +103,13 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Rechercher un candidat...">
-                                <button class="btn btn-outline-secondary" type="button">
-                                    <i class="fas fa-search"></i>
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" class="form-control" id="searchInput" 
+                                       placeholder="Rechercher un candidat..."
+                                       onkeyup="searchCandidats()" >
+
+                                <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
+                                    <i class="fas fa-times"></i>
                                 </button>
                             </div>
                         </div>
@@ -134,7 +138,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="candidatsTableBody">
                                 <tr th:each="candidat, status : ${candidats}">
                                     <td th:text="${status.count}">1</td>
                                     <td th:text="${candidat.nom}">Dupont</td>
@@ -179,6 +183,11 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+
+                    <!-- Message "Aucun résultat" -->
+                    <div id="noResults" class="alert alert-info text-center" style="display: none;">
+                        Aucun candidat ne correspond à votre recherche.
                     </div>
 
                     <!-- Pagination -->
@@ -348,6 +357,30 @@
             document.getElementById('edit-adresse').value = adresse;
 
             modal.show();
+        }
+
+        function searchCandidats() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#candidatsTableBody tr');
+            let hasResults = false;
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                    hasResults = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Afficher ou masquer le message "Aucun résultat"
+            document.getElementById('noResults').style.display = hasResults ? 'none' : 'block';
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchCandidats();
         }
     </script>
 </body>

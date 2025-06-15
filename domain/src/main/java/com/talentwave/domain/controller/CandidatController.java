@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +18,7 @@ import com.talentwave.domain.model.Candidat;
 import com.talentwave.domain.service.CandidatService;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@RestController
 @Controller
 public class CandidatController {
 
@@ -32,8 +34,13 @@ public class CandidatController {
     }
 
     @GetMapping("/candidat/list")
-    public String voirListCandidats(Model model) {
-        model.addAttribute("candidats", candidatService.getAllCandidats());
+    public String voirListCandidats(Model model, @RequestParam(required = false) String search) {
+        if (search != null && !search.trim().isEmpty()) {
+            model.addAttribute("candidats", candidatService.searchCandidats(search));
+            model.addAttribute("searchTerm", search);
+        } else {
+            model.addAttribute("candidats", candidatService.getAllCandidats());
+        }
         return "candidat/list-candidats";
     }
 
@@ -81,6 +88,7 @@ public class CandidatController {
         candidatService.saveCandidat(candidat);
         return "redirect:/candidat/list";
     }
+
 
     @PostMapping("/candidat/update")
     public String updateCandidat(@ModelAttribute("candidat") Candidat candidat,

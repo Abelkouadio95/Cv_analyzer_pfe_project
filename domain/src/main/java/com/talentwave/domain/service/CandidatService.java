@@ -22,6 +22,13 @@ public class CandidatService {
         return candidatRepository.findAll();
     }
 
+    public List<Candidat> searchCandidats(String searchTerm) {
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return getAllCandidats();
+        }
+        return candidatRepository.searchCandidats(searchTerm.trim());
+    }
+
     public void deleteCandidat(Long id) {
         candidatRepository.deleteById(id);
     }

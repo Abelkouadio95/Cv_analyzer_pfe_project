@@ -123,11 +123,20 @@
 
                         <!-- profilScript -->
                         <h4 class="mb-3 mt-4">Profil</h4>
-                        <div id="psContainer">
-                            <div class="ps-item mb-2">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Saisir le profil du cv" required>
-                                </div>
+                        <div id="psContainer" class="row">
+                            <div class="ps-item mb-2 col-md-6">
+                                <label for="fonction" class="form-label">Fonction</label>
+                                <input type="text" class="form-control" id="fonction" placeholder="Saisir l" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Niveau d'expérience</label>
+                                <select class="form-select">
+                                    <option value="">Tous les niveaux</option>
+                                    <option value="junior">Junior (0-2 ans)</option>
+                                    <option value="intermediate">Intermédiaire (2-5 ans)</option>
+                                    <option value="senior">Senior (5-10 ans)</option>
+                                    <option value="expert">Expert (10+ ans)</option>
+                                </select>
                             </div>
                         </div>
                         <hr class="my-4">
