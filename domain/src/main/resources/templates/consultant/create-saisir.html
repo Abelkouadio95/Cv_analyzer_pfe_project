@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <!-- Notre CSS personnalisé -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
     <div class="main-container">
@@ -93,32 +95,32 @@
             <h1 class="display-4">Créer un consultant par saisie</h1>
             <div class="card mt-4">
                 <div class="card-body">
-                    <form id="consultantForm" th:action="@{/consultant/saisir}" th:object="${consultant}" method="post">
+                    <form id="consultantForm">
                         <!-- Informations personnelles -->
                         <h4 class="mb-3">Informations personnelles</h4>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="nom" class="form-label">Nom</label>
-                                <input type="text" class="form-control" id="nom" th:field="*{nom}"required>
+                                <input type="text" class="form-control" id="nom" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" th:field="*{prenom}"required>
+                                <input type="text" class="form-control" id="prenom" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" th:field="*{email}">
+                                <input type="email" class="form-control" id="email">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="tel" class="form-control" id="telephone" th:field="*{telephone}">
+                                <input type="tel" class="form-control" id="telephone">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="adresse" class="form-label">Adresse</label>
-                            <textarea class="form-control" id="adresse" rows="2" th:field="*{adresse}"></textarea>
+                            <textarea class="form-control" id="adresse" rows="2"></textarea>
                         </div>
 
                         <!-- profilScript -->
@@ -126,7 +128,7 @@
                         <div id="psContainer" class="row">
                             <div class="mb-3">
                                 <label class="form-label">Secteur d'activité</label>
-                                <select class="form-select" th:field="*{secteurActivite}">
+                                <select class="form-select" id="secteur">
                                     <option value="Informatique">Informatique</option>
                                     <option value="Industrie">Industrie</option>
                                     <option value="Agricole">Agricole</option>
@@ -135,7 +137,7 @@
                             </div>
                             <div class="ps-item mb-2 col-md-6">
                                 <label class="form-label">Fonction</label>
-                                <select class="form-select" th:field="*{fonction}">
+                                <select class="form-select" id="fonction">
                                     <option value="Développeur">Développeur</option>
                                     <option value="Data Scientist">Data Scientist</option>
                                     <option value="DevOps">DevOps</option>
@@ -148,7 +150,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Niveau d'expérience</label>
-                                <select class="form-select" th:field="*{niveauExperience}">
+                                <select class="form-select" id="niveauExperience">
                                     <option value="">Tous les niveaux</option>
                                     <option value="junior">Junior (0-2 ans)</option>
                                     <option value="intermediate">Intermédiaire (2-5 ans)</option>
@@ -202,43 +204,7 @@
                         <!-- Expérience professionnelle -->
                         <h4 class="mb-3">Expérience professionnelle</h4>
                         <div id="experienceContainer">
-                            <div class="experience-item card mb-3">
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Poste</label>
-                                            <input type="text" class="form-control" placeholder="Titre du poste">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Entreprise</label>
-                                            <input type="text" class="form-control" placeholder="Nom de l'entreprise">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Date de début</label>
-                                            <input type="date" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Date de fin</label>
-                                            <input type="date" class="form-control">
-                                            <div class="form-check mt-2">
-                                                <input class="form-check-input" type="checkbox" id="currentJob">
-                                                <label class="form-check-label" for="currentJob">
-                                                    Poste actuel
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Description</label>
-                                        <textarea class="form-control" rows="3" placeholder="Description des responsabilités et réalisations"></textarea>
-                                    </div>
-                                    <button type="button" class="btn btn-danger remove-experience">
-                                        <i class="fas fa-trash me-2"></i>Supprimer cette expérience
-                                    </button>
-                                </div>
-                            </div>
+                            <!-- Experience items will be added here -->
                         </div>
                         <button type="button" class="btn btn-secondary mb-4" id="addExperience">
                             <i class="fas fa-plus me-2"></i>Ajouter une expérience
@@ -247,30 +213,7 @@
                         <!-- Formation -->
                         <h4 class="mb-3">Formation</h4>
                         <div id="formationContainer">
-                            <div class="formation-item card mb-3">
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Diplôme</label>
-                                            <input type="text" class="form-control" placeholder="Nom du diplôme">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Établissement</label>
-                                            <input type="text" class="form-control" placeholder="Nom de l'établissement">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Date d'obtention</label>
-                                            <input type="date" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <button type="button" class="btn btn-danger remove-formation">
-                                        <i class="fas fa-trash me-2"></i>Supprimer cette formation
-                                    </button>
-                                </div>
-                            </div>
+                            <!-- Formation items will be added here -->
                         </div>
                         <button type="button" class="btn btn-secondary mb-4" id="addFormation">
                             <i class="fas fa-plus me-2"></i>Ajouter une formation
@@ -316,12 +259,10 @@
                         <button type="button" class="btn btn-secondary mb-4" id="addci">
                             <i class="fas fa-plus me-2"></i>Ajouter
                         </button>
-
-                        <br>
-                        <button type="submit" class="btn btn-primary" style="display: block; margin: 20px auto;">
-                            <i class="fas fa-save me-2"></i>Créer le consultant
-                        </button>
                     </form>
+                    <button type="submit" class="btn btn-primary mt-4" form="consultantForm">
+                        <i class="fas fa-save me-2"></i>Créer le consultant
+                    </button>
                 </div>
             </div>
 
@@ -344,69 +285,9 @@
             </template>
 
             <template id="experienceTemplate">
-                <div class="experience-item card mb-3">
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Poste</label>
-                                <input type="text" class="form-control" placeholder="Titre du poste" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Entreprise</label>
-                                <input type="text" class="form-control" placeholder="Nom de l'entreprise" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Date de début</label>
-                                <input type="date" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Date de fin</label>
-                                <input type="date" class="form-control">
-                                <div class="form-check mt-2">
-                                    <input class="form-check-input" type="checkbox" id="currentJob">
-                                    <label class="form-check-label" for="currentJob">
-                                        Poste actuel
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Description des responsabilités et réalisations"></textarea>
-                        </div>
-                        <button type="button" class="btn btn-danger remove-experience">
-                            <i class="fas fa-trash me-2"></i>Supprimer cette expérience
-                        </button>
-                    </div>
-                </div>
             </template>
 
             <template id="formationTemplate">
-                <div class="formation-item card mb-3">
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Diplôme</label>
-                                <input type="text" class="form-control" placeholder="Nom du diplôme" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Établissement</label>
-                                <input type="text" class="form-control" placeholder="Nom de l'établissement" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Date d'obtention</label>
-                                <input type="date" class="form-control" required>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-danger remove-formation">
-                            <i class="fas fa-trash me-2"></i>Supprimer cette formation
-                        </button>
-                    </div>
-                </div>
             </template>
 
             <template id="languesTemplate">
@@ -450,6 +331,77 @@
 
 
             <script>
+                let experienceIndex = 0;
+                let formationIndex = 0;
+
+                function createExperienceItem(index) {
+                    return `
+                    <div class="experience-item card mb-3">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Poste</label>
+                                    <input type="text" class="form-control" name="experiences[${index}].poste" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Entreprise</label>
+                                    <input type="text" class="form-control" name="experiences[${index}].entreprise" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Date de début</label>
+                                    <input type="date" class="form-control" name="experiences[${index}].dateDebut" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date de fin</label>
+                                    <input type="date" class="form-control" name="experiences[${index}].dateFin">
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="experiences[${index}].posteActuel" value="true">
+                                        <label class="form-check-label">Poste actuel</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="experiences[${index}].description" rows="3"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-danger remove-experience">
+                                <i class="fas fa-trash me-2"></i>Supprimer cette expérience
+                            </button>
+                        </div>
+                    </div>
+                    `;
+                }
+
+                function createFormationItem(index) {
+                    return `
+                    <div class="formation-item card mb-3">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Diplôme</label>
+                                    <input type="text" class="form-control" name="formations[${index}].diplome" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Établissement</label>
+                                    <input type="text" class="form-control" name="formations[${index}].etablissement" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Date d'obtention</label>
+                                    <input type="date" class="form-control" name="formations[${index}].dateObtention" required>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-danger remove-formation">
+                                <i class="fas fa-trash me-2"></i>Supprimer cette formation
+                            </button>
+                        </div>
+                    </div>
+                    `;
+                }
+
                 document.addEventListener('DOMContentLoaded', function() {
                     // Gestion des compétences
                     const addCompetenceBtn = document.getElementById('addCompetence');
@@ -547,14 +499,116 @@
                         }
                     });
 
-
-                    // Gestion du formulaire
-                    const form = document.getElementById('consultantForm');
-                    form.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        // Ici, vous pouvez ajouter la logique pour envoyer les données au serveur
-                        console.log('Formulaire soumis');
+                    // Add experience
+                    document.getElementById('addExperience').addEventListener('click', function() {
+                        const container = document.getElementById('experienceContainer');
+                        container.insertAdjacentHTML('beforeend', createExperienceItem(experienceIndex++));
                     });
+
+                    // Remove experience
+                    document.getElementById('experienceContainer').addEventListener('click', function(e) {
+                        if (e.target.closest('.remove-experience')) {
+                            e.target.closest('.experience-item').remove();
+                        }
+                    });
+
+                    // Add formation
+                    document.getElementById('addFormation').addEventListener('click', function() {
+                        const container = document.getElementById('formationContainer');
+                        container.insertAdjacentHTML('beforeend', createFormationItem(formationIndex++));
+                    });
+
+                    // Remove formation
+                    document.getElementById('formationContainer').addEventListener('click', function(e) {
+                        if (e.target.closest('.remove-formation')) {
+                            e.target.closest('.formation-item').remove();
+                        }
+                    });
+                });
+
+                document.getElementById('consultantForm').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    // Collect main candidat fields
+                    const form = e.target;
+                    const candidat = {
+                        nom: form.nom.value,
+                        prenom: form.prenom.value,
+                        email: form.email.value,
+                        telephone: form.telephone.value,
+                        adresse: form.adresse.value,
+                        secteur: form.secteur.value,
+                        fonction: form.fonction.value,
+                        niveauExperience: form.niveauExperience.value,
+                        competences: Array.from(document.querySelectorAll('#competencesContainer input[type=text]')).map(i => i.value).join(','),
+                        qualites: Array.from(document.querySelectorAll('#ssContainer input[type=text]')).map(i => i.value).join(','),
+                        langues: Array.from(document.querySelectorAll('#languesContainer input[type=text]')).map(i => i.value).join(','),
+                        centresInteret: Array.from(document.querySelectorAll('#ciContainer input[type=text]')).map(i => i.value).join(',')
+                    };
+
+                    const experiences = [];
+document.querySelectorAll('#experienceContainer .experience-item').forEach(item => {
+    const posteInput = item.querySelector('[name$=".poste"]');
+    const entrepriseInput = item.querySelector('[name$=".entreprise"]');
+    const dateDebutInput = item.querySelector('[name$=".dateDebut"]');
+    const dateFinInput = item.querySelector('[name$=".dateFin"]');
+    const posteActuelInput = item.querySelector('[name$=".posteActuel"]');
+    const descriptionInput = item.querySelector('[name$=".description"]');
+
+    // Only push if mandatory fields exist
+    if (posteInput && entrepriseInput && dateDebutInput) {
+        experiences.push({
+            poste: posteInput.value,
+            entreprise: entrepriseInput.value,
+            dateDebut: dateDebutInput.value,
+            dateFin: dateFinInput ? dateFinInput.value : null,
+            posteActuel: posteActuelInput ? posteActuelInput.checked : false,
+            description: descriptionInput ? descriptionInput.value : ''
+        });
+    }
+});
+
+const formations = [];
+document.querySelectorAll('#formationContainer .formation-item').forEach(item => {
+    const diplomeInput = item.querySelector('[name$=".diplome"]');
+    const etablissementInput = item.querySelector('[name$=".etablissement"]');
+    const dateObtentionInput = item.querySelector('[name$=".dateObtention"]');
+
+    if (diplomeInput && etablissementInput && dateObtentionInput) {
+        formations.push({
+            diplome: diplomeInput.value,
+            etablissement: etablissementInput.value,
+            dateObtention: dateObtentionInput.value
+        });
+    }
+});
+
+
+                    // Prepare the payload
+                    const payload = {
+                        candidat,
+                        experiences,
+                        formations
+                    };
+
+                    // Send to backend
+                    const csrfToken = document.querySelector('meta[name=\"_csrf\"]').getAttribute('content');
+                    const csrfHeader = document.querySelector('meta[name=\"_csrf_header\"]').getAttribute('content');
+
+                    const response = await fetch('/consultant/saisir', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            [csrfHeader]: csrfToken
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        window.location.href = '/'; // or wherever you want to redirect
+                    } else {
+                        alert('Erreur lors de la création du consultant');
+                    }
                 });
             </script>
         </main>

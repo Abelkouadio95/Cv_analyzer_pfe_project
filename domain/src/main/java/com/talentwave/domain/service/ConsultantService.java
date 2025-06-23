@@ -1,17 +1,25 @@
 package com.talentwave.domain.service;
 
-import com.talentwave.domain.model.Consultant;
-import com.talentwave.domain.repository.ConsultantRepository;
+import com.talentwave.domain.model.Candidat;
+import com.talentwave.domain.model.ExperienceProfessionnelle;
+import com.talentwave.domain.model.Formation;
+import com.talentwave.domain.repository.CandidatRepository;
+import com.talentwave.domain.repository.ExperienceProfessionnelleRepository;
+import com.talentwave.domain.repository.FormationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//import java.util.List;
+import java.util.List;
 
 @Service
 public class ConsultantService {
 
     @Autowired
-    private ConsultantRepository consultantRepository;
+    private CandidatRepository candidatRepository;
+    @Autowired
+    private ExperienceProfessionnelleRepository experienceRepository;
+    @Autowired
+    private FormationRepository formationRepository;
 
     /*public List<Consultant> searchConsultants(
             List<String> secteurs,
@@ -35,7 +43,22 @@ public class ConsultantService {
         );
     }*/
 
-    public void saveConsultant(Consultant consultant) {
-        consultantRepository.save(consultant);
+    public void saveConsultant(Candidat candidat) {
+        candidat.setIsConsultant(true);
+        candidatRepository.save(candidat);
+    }
+
+    public void saveConsultantWithDetails(Candidat candidat, List<ExperienceProfessionnelle> experiences, List<Formation> formations) {
+        candidat.setIsConsultant(true);
+        candidatRepository.save(candidat);
+
+        for (ExperienceProfessionnelle exp : experiences) {
+            exp.setCandidat(candidat);
+            experienceRepository.save(exp);
+        }
+        for (Formation form : formations) {
+            form.setCandidat(candidat);
+            formationRepository.save(form);
+        }
     }
 } 

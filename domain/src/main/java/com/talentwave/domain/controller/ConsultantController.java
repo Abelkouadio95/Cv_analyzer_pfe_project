@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.talentwave.domain.model.Consultant;
+import com.talentwave.domain.model.Candidat;
+import com.talentwave.domain.model.ExperienceProfessionnelle;
+import com.talentwave.domain.model.Formation;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 //import java.util.List;
 
@@ -28,15 +33,14 @@ public class ConsultantController {
     }
 
     @PostMapping("/consultant/saisir")
-    public String saveConsultant(@ModelAttribute("consultant") Consultant consultant) {
-        consultantService.saveConsultant(consultant);
-        return "redirect:/";
-        
+    public ResponseEntity<?> saveConsultant(@RequestBody ConsultantPayload payload) {
+        consultantService.saveConsultantWithDetails(payload.candidat, payload.experiences, payload.formations);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/consultant/create/saisir")
     public String createConsultantBySaisir(Model model) {
-        model.addAttribute("consultant", new Consultant());
+        model.addAttribute("consultant", new Candidat());
         return "consultant/create-saisir";
     }
 
@@ -74,4 +78,10 @@ public class ConsultantController {
         return "consultant/search-profiles";
     }
 
+    // DTO for JSON payload
+    public static class ConsultantPayload {
+        public Candidat candidat;
+        public List<ExperienceProfessionnelle> experiences;
+        public List<Formation> formations;
+    }
 }
