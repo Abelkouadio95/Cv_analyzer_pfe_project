@@ -9,11 +9,14 @@ public class ExperienceProfessionnelle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     private String poste;
+    @Lob
     private String entreprise;
     private String dateDebut;
     private String dateFin;
     private boolean posteActuel;
+    @Lob
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)

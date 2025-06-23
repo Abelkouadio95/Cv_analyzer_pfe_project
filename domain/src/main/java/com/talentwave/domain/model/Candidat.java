@@ -27,9 +27,13 @@ public class Candidat {
     private boolean isConsultant;
 
     // Multi-value fields as comma-separated strings
+    @Lob
     private String competences; // e.g. "Java,Spring,SQL"
+    @Lob
     private String langues; // e.g. "Français,Anglais"
+    @Lob
     private String qualites; // e.g. "Rigoureux,Créatif"
+    @Lob
     private String centresInteret; // e.g. "Lecture,Musique"
 
     // Helper methods for parsing comma-separated fields
