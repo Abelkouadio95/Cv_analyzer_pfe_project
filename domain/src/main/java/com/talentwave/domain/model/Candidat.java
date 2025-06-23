@@ -11,8 +11,9 @@ import java.util.Arrays;
 @Table(name = "candidats")
 public class Candidat {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "BINARY(16)")
+    private java.util.UUID id;
 
     private String nom;
     private String prenom;
@@ -87,11 +88,11 @@ public class Candidat {
     }
 
     // Getters et Setters
-    public Long getId() {
+    public java.util.UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(java.util.UUID id) {
         this.id = id;
     }
 
@@ -149,6 +150,32 @@ public class Candidat {
 
     public void setIsConsultant(boolean isConsultant) {
         this.isConsultant = isConsultant;
+    }
+
+    @OneToMany(mappedBy = "candidat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ExperienceProfessionnelle> experiences = new ArrayList<>();
+
+    @OneToMany(mappedBy = "candidat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Formation> formations = new ArrayList<>();
+
+    public List<ExperienceProfessionnelle> getExperiences() {
+        return experiences;
+    }
+    public List<Formation> getFormations() {
+        return formations;
+    }
+
+    public String getCompetences() {
+        return competences;
+    }
+    public String getLangues() {
+        return langues;
+    }
+    public String getQualites() {
+        return qualites;
+    }
+    public String getCentresInteret() {
+        return centresInteret;
     }
 } 
 

@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.talentwave.domain.model.Candidat;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface CandidatRepository extends JpaRepository<Candidat, Long> {
+public interface CandidatRepository extends JpaRepository<Candidat, UUID> {
     
     @Query("SELECT c FROM Candidat c WHERE " +
            "LOWER(c.nom) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +

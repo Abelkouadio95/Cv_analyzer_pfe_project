@@ -2,3 +2,4 @@
 ### Environment ###
 .env
 *.pdf
+domain/uploads

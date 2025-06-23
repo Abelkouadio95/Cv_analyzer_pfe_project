@@ -20,7 +20,7 @@ public class ExperienceProfessionnelle {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "candidat_id")
+    @JoinColumn(name = "candidat_id", columnDefinition = "BINARY(16)")
     private Candidat candidat;
 
     // Getters and setters

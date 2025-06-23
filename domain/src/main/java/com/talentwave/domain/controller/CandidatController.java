@@ -45,13 +45,13 @@ public class CandidatController {
     }
 
     @GetMapping("/candidat/delete/{id}")
-    public String deleteCandidat(@PathVariable Long id) {
+    public String deleteCandidat(@PathVariable UUID id) {
         candidatService.deleteCandidat(id);
         return "redirect:/candidat/list";
     }
 
     @GetMapping("/candidat/edit/{id}")
-    public String editCandidat(@PathVariable Long id, Model model) {
+    public String editCandidat(@PathVariable UUID id, Model model) {
         Candidat candidat = candidatService.getCandidatById(id);
         model.addAttribute("candidat", candidat);
         return "candidat/edit-candidat";
