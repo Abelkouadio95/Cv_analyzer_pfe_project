@@ -93,44 +93,62 @@
             <h1 class="display-4">Créer un consultant par saisie</h1>
             <div class="card mt-4">
                 <div class="card-body">
-                    <form id="consultantForm">
+                    <form id="consultantForm" th:action="@{/consultant/saisir}" th:object="${consultant}" method="post">
                         <!-- Informations personnelles -->
                         <h4 class="mb-3">Informations personnelles</h4>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="nom" class="form-label">Nom</label>
-                                <input type="text" class="form-control" id="nom" required>
+                                <input type="text" class="form-control" id="nom" th:field="*{nom}"required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" required>
+                                <input type="text" class="form-control" id="prenom" th:field="*{prenom}"required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
+                                <input type="email" class="form-control" id="email" th:field="*{email}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="tel" class="form-control" id="telephone">
+                                <input type="tel" class="form-control" id="telephone" th:field="*{telephone}">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="adresse" class="form-label">Adresse</label>
-                            <textarea class="form-control" id="adresse" rows="2"></textarea>
+                            <textarea class="form-control" id="adresse" rows="2" th:field="*{adresse}"></textarea>
                         </div>
 
                         <!-- profilScript -->
                         <h4 class="mb-3 mt-4">Profil</h4>
                         <div id="psContainer" class="row">
+                            <div class="mb-3">
+                                <label class="form-label">Secteur d'activité</label>
+                                <select class="form-select" th:field="*{secteurActivite}">
+                                    <option value="Informatique">Informatique</option>
+                                    <option value="Industrie">Industrie</option>
+                                    <option value="Agricole">Agricole</option>
+                                    <option value="Agro-industriel">Agro-industriel</option>
+                                </select>
+                            </div>
                             <div class="ps-item mb-2 col-md-6">
-                                <label for="fonction" class="form-label">Fonction</label>
-                                <input type="text" class="form-control" id="fonction" placeholder="Saisir l" required>
+                                <label class="form-label">Fonction</label>
+                                <select class="form-select" th:field="*{fonction}">
+                                    <option value="Développeur">Développeur</option>
+                                    <option value="Data Scientist">Data Scientist</option>
+                                    <option value="DevOps">DevOps</option>
+                                    <option value="Designer">Designer</option>
+                                    <option value="Project Manager">Project Manager</option>
+                                    <option value="Business Analyst">Business Analyst</option>
+                                    <option value="QA Engineer">QA Engineer</option>
+                                    <option value="Architecte">Architecte</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Niveau d'expérience</label>
-                                <select class="form-select">
+                                <select class="form-select" th:field="*{niveauExperience}">
                                     <option value="">Tous les niveaux</option>
                                     <option value="junior">Junior (0-2 ans)</option>
                                     <option value="intermediate">Intermédiaire (2-5 ans)</option>
@@ -145,7 +163,7 @@
                         <div id="competencesContainer">
                             <div class="competence-item mb-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Compétence" required>
+                                    <input type="text" class="form-control" placeholder="Compétence">
                                     <select class="form-select" style="max-width: 150px;">
                                         <option value="debutant">Débutant</option>
                                         <option value="intermediaire">Intermédiaire</option>
@@ -168,7 +186,7 @@
                         <div id="ssContainer">
                             <div class="ss-item mb-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Soft skills" required>
+                                    <input type="text" class="form-control" placeholder="Soft skills">
     
                                     <button type="button" class="btn btn-danger remove-ss">
                                         <i class="fas fa-times"></i>
@@ -189,17 +207,17 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label class="form-label">Poste</label>
-                                            <input type="text" class="form-control" placeholder="Titre du poste" required>
+                                            <input type="text" class="form-control" placeholder="Titre du poste">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Entreprise</label>
-                                            <input type="text" class="form-control" placeholder="Nom de l'entreprise" required>
+                                            <input type="text" class="form-control" placeholder="Nom de l'entreprise">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label class="form-label">Date de début</label>
-                                            <input type="date" class="form-control" required>
+                                            <input type="date" class="form-control">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Date de fin</label>
@@ -234,17 +252,17 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label class="form-label">Diplôme</label>
-                                            <input type="text" class="form-control" placeholder="Nom du diplôme" required>
+                                            <input type="text" class="form-control" placeholder="Nom du diplôme">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Établissement</label>
-                                            <input type="text" class="form-control" placeholder="Nom de l'établissement" required>
+                                            <input type="text" class="form-control" placeholder="Nom de l'établissement">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label class="form-label">Date d'obtention</label>
-                                            <input type="date" class="form-control" required>
+                                            <input type="date" class="form-control">
                                         </div>
                                     </div>
 
@@ -264,7 +282,7 @@
                         <div id="languesContainer">
                             <div class="langues-item mb-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Langues" required>
+                                    <input type="text" class="form-control" placeholder="Langues">
                                     <select class="form-select" style="max-width: 150px;">
                                         <option value="debutant">Débutant</option>
                                         <option value="intermediaire">Intermédiaire</option>
@@ -287,7 +305,7 @@
                         <div id="ciContainer">
                             <div class="ci-item mb-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Centres d'intéret" required>
+                                    <input type="text" class="form-control" placeholder="Centres d'intéret" >
     
                                     <button type="button" class="btn btn-danger remove-ci">
                                         <i class="fas fa-times"></i>

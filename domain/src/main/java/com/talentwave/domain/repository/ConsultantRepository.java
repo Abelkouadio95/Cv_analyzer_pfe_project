@@ -1,17 +1,17 @@
-/*package com.talentwave.domain.repository;
+package com.talentwave.domain.repository;
 
 import com.talentwave.domain.model.Consultant;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+//import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+//import java.util.List;
 
 @Repository
 public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
     
-    @Query("SELECT c FROM Consultant c WHERE " +
+    /*@Query("SELECT c FROM Consultant c WHERE " +
            "(:secteurs IS NULL OR c.secteursActivite IN :secteurs) AND " +
            "(:fonctions IS NULL OR c.fonctions IN :fonctions) AND " +
            "(:competences IS NULL OR c.competences IN :competences) AND " +
@@ -29,6 +29,5 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
             @Param("typeContrat") String typeContrat,
             @Param("disponibilite") String disponibilite,
             @Param("anneesExperience") Integer anneesExperience
-    );
+    );*/
 } 
-*/

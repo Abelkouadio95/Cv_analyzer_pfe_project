@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +18,7 @@ import com.talentwave.domain.model.Candidat;
 import com.talentwave.domain.service.CandidatService;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@RestController
+
 @Controller
 public class CandidatController {
 

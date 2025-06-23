@@ -1,174 +1,114 @@
 package com.talentwave.domain.model;
 
 import jakarta.persistence.*;
-//import java.util.List;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+//import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "consultants")
 public class Consultant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Informations personnelles
     private String nom;
     private String prenom;
     private String email;
     private String telephone;
     private String adresse;
-    private String photoUrl;
-    private String titre;
-    private Integer anneesExperience;
-    private String localisation;
+    
+    // Informations professionnelles
+    private String secteurActivite;
+    private String fonction;
+    private String niveauExperience;
     private String disponibilite;
-    private String typeContrat;
+    private String cvPath;
+    
+    // Relations
+   /* @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultantLangue> langues = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "consultant_secteurs", joinColumns = @JoinColumn(name = "consultant_id"))
-    @Column(name = "secteur")
-    private Set<String> secteursActivite;
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultantExperience> experiences = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "consultant_fonctions", joinColumns = @JoinColumn(name = "consultant_id"))
-    @Column(name = "fonction")
-    private Set<String> fonctions;
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultantFormation> formations = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "consultant_competences", joinColumns = @JoinColumn(name = "consultant_id"))
-    @Column(name = "competence")
-    private Set<String> competences;
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultantCI> centresInteret = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "consultant_langues", joinColumns = @JoinColumn(name = "consultant_id"))
-    @Column(name = "langue")
-    private Set<String> langues;
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultantSoftSkill> softSkills = new ArrayList<>();
 
-    // Getters et Setters
-    public Long getId() {
-        return id;
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultantCompetence> competences = new ArrayList<>();
+
+    // Méthodes utilitaires pour gérer les relations
+    public void addLangue(ConsultantLangue langue) {
+        langues.add(langue);
+        langue.setConsultant(this);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void removeLangue(ConsultantLangue langue) {
+        langues.remove(langue);
+        langue.setConsultant(null);
     }
 
-    public String getNom() {
-        return nom;
+    public void addExperience(ConsultantExperience experience) {
+        experiences.add(experience);
+        experience.setConsultant(this);
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void removeExperience(ConsultantExperience experience) {
+        experiences.remove(experience);
+        experience.setConsultant(null);
     }
 
-    public String getPrenom() {
-        return prenom;
+    public void addFormation(ConsultantFormation formation) {
+        formations.add(formation);
+        formation.setConsultant(this);
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void removeFormation(ConsultantFormation formation) {
+        formations.remove(formation);
+        formation.setConsultant(null);
     }
 
-    public String getEmail() {
-        return email;
+    public void addCentreInteret(ConsultantCI centreInteret) {
+        centresInteret.add(centreInteret);
+        centreInteret.setConsultant(this);
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void removeCentreInteret(ConsultantCI centreInteret) {
+        centresInteret.remove(centreInteret);
+        centreInteret.setConsultant(null);
     }
 
-    public String getTelephone() {
-        return telephone;
+    public void addSoftSkill(ConsultantSoftSkill softSkill) {
+        softSkills.add(softSkill);
+        softSkill.setConsultant(this);
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void removeSoftSkill(ConsultantSoftSkill softSkill) {
+        softSkills.remove(softSkill);
+        softSkill.setConsultant(null);
     }
 
-    public String getAdresse() {
-        return adresse;
+    public void addCompetence(ConsultantCompetence competence) {
+        competences.add(competence);
+        competence.setConsultant(this);
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public Integer getAnneesExperience() {
-        return anneesExperience;
-    }
-
-    public void setAnneesExperience(Integer anneesExperience) {
-        this.anneesExperience = anneesExperience;
-    }
-
-    public String getLocalisation() {
-        return localisation;
-    }
-
-    public void setLocalisation(String localisation) {
-        this.localisation = localisation;
-    }
-
-    public String getDisponibilite() {
-        return disponibilite;
-    }
-
-    public void setDisponibilite(String disponibilite) {
-        this.disponibilite = disponibilite;
-    }
-
-    public String getTypeContrat() {
-        return typeContrat;
-    }
-
-    public void setTypeContrat(String typeContrat) {
-        this.typeContrat = typeContrat;
-    }
-
-    public Set<String> getSecteursActivite() {
-        return secteursActivite;
-    }
-
-    public void setSecteursActivite(Set<String> secteursActivite) {
-        this.secteursActivite = secteursActivite;
-    }
-
-    public Set<String> getFonctions() {
-        return fonctions;
-    }
-
-    public void setFonctions(Set<String> fonctions) {
-        this.fonctions = fonctions;
-    }
-
-    public Set<String> getCompetences() {
-        return competences;
-    }
-
-    public void setCompetences(Set<String> competences) {
-        this.competences = competences;
-    }
-
-    public Set<String> getLangues() {
-        return langues;
-    }
-
-    public void setLangues(Set<String> langues) {
-        this.langues = langues;
-    }
-} 
+    public void removeCompetence(ConsultantCompetence competence) {
+        competences.remove(competence);
+        competence.setConsultant(null);
+    } */
+}
