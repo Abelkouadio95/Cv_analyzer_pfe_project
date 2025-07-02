@@ -49,4 +49,14 @@ public class CandidatService {
         
         candidatRepository.save(candidat);
     }
+    public long countCandidats() {
+        return candidatRepository.count();
+    }
+
+    public long countConsultants() {
+        return candidatRepository.countByIsConsultantTrue();
+    }
+    public long countCvAttente() {
+        return candidatRepository.countByIsConsultantFalse();
+    }
 }

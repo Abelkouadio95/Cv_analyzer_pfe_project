@@ -20,4 +20,7 @@ public interface CandidatRepository extends JpaRepository<Candidat, UUID> {
            "LOWER(c.adresse) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
            "LOWER(c.secteur) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<Candidat> searchCandidats(@Param("searchTerm") String searchTerm);
+
+    long countByIsConsultantTrue();
+    long countByIsConsultantFalse();
 }

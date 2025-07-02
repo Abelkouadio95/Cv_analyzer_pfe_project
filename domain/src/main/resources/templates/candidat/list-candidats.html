@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" id="logout-link">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Déconnexion</span>
                     </a>
@@ -382,6 +382,18 @@
             document.getElementById('searchInput').value = '';
             searchCandidats();
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            var logoutLink = document.getElementById('logout-link');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                        window.location.href = '/logout';
+                    }
+                });
+            }
+        });
     </script>
+    
 </body>
 </html> 

@@ -248,3 +248,21 @@ body {
     position: relative;
     z-index: 1002;
 }
+
+/* Effet de survol sur les cartes statistiques */
+.card.bg-primary,
+.card.bg-success,
+.card.bg-warning,
+.card.bg-info {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.card.bg-primary:hover,
+.card.bg-success:hover,
+.card.bg-warning:hover,
+.card.bg-info:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.406), 0 1.5px 4px rgba(0, 0, 0, 0.411);
+    z-index: 2;
+}
